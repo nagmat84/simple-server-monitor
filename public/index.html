@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="none" />
+		<link rel="stylesheet" href="./style.css" />
+		<script src="./code.js"></script>
+		<title>Simple Server Monitor</title>
+	</head>
+	<body onload="init();">
+		<div id="content">
+			<table class="log-table" id="backup-log-table">
+				<thead>
+					<tr>
+						<th>Time</th>
+						<th>Priority</th>
+						<th>Facility</th>
+						<th>Identifier</th>
+						<th>Message</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div id="message-box"></div>
+		<template id="log-tr-fragment">
+			<tr class="log-entry">
+				<td class="log-time"></td>
+				<td class="log-priority"></td>
+				<td class="log-facility"></td>
+				<td class="log-identifier"></td>
+				<td class="log-message"></td>
+			</tr>
+		</template>
+	</body>
+</html>
+
+
