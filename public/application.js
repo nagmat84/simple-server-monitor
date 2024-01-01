@@ -73,7 +73,7 @@ Application.prototype.init = function() {
 	// it such that is always equals the third pattern.
 
 	this.rootURL =
-		window.location.protocol +
+		window.location.protocol + '//' +
 		window.location.hostname +
 		(window.location.port ? ':' + window.location.port : '') +
 		window.location.pathname.replace(/\/?(index\.html)?$/, '');
