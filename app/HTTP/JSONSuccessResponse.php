@@ -13,5 +13,3 @@ class JSONSuccessResponse extends AbstractJSONResponse {
 		return ['payload' => $this->payload];
 	}
 }
-
-?>

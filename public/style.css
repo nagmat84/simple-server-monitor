@@ -29,9 +29,9 @@ a, a:visited, a:link {
 	max-width: 80%;
 	width: 60rem;
 	margin: 2rem auto auto auto;
-	left: 0px;
-	right: 0px;
-	top: 0px;
+	left: 0;
+	right: 0;
+	top: 0;
 	border: 2px solid #933;
 	background-color: #fcc;
 	color: #900;

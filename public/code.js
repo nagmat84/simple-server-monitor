@@ -1,5 +1,38 @@
 'use strict';
 
+/**
+ * @typedef {Object} JsonResponse
+ * @property {int} code
+ * @property {string} message
+ */
+
+/**
+ * @typedef {Object} JsonErrorResponse
+ * @augments JsonResponse
+ * @property {int} code
+ * @property {string} message
+ */
+
+/**
+ * @typedef {Object} JsonLogResponse
+ * @augments JsonResponse
+ * @property {int} code
+ * @property {string} message
+ * @property {?JsonLogEntry[]} payload
+ */
+
+/**
+ * @typedef {Object} JsonLogEntry
+ * @property {int} timestamp
+ * @property {int} priority
+ * @property {?int} facility
+ * @property {?string} identifier
+ * @property {string} message
+ */
+
+/**
+ * @constructor
+ */
 function App() {
 	this.messageBox = document.getElementById( 'message-box' )
 	this.backupLogTable = document.getElementById( 'backup-log-table' );
@@ -11,17 +44,24 @@ App.prototype.clearMessage = function() {
 	this.showMessage( '' );
 };
 
+/**
+ * @param {string} msg
+ */
 App.prototype.showMessage = function( msg ) {
 	this.messageBox.textContent = msg;
 };
 
+/**
+ * @param {JsonErrorResponse} json
+ * @return {boolean}
+ */
 App.prototype.handleJSONError = function( json ) {
 	if( json.code === 200 ) {
 		this.clearMessage();
 		return false;
 	}
-	var msg = '';
-	switch( json.response_code ) {
+	let msg;
+	switch( json.code ) {
 		case 401:
 			msg = 'Authentication failure (Internal error message: "' + json.code + '—' + json.message + '")';
 			break;
@@ -40,21 +80,21 @@ App.prototype.handleJSONError = function( json ) {
 };
 
 App.prototype.fetchBackupLogs = function() {
-	var successHandler = ( function( app ) {
+	const successHandler = ( function( app ) {
 		return function( json ) {
 			app.onBackupLogsFetched( json );
 		};
 	})( this );
-	
-	var errorHandler = ( function( app ) {
+
+	const errorHandler = ( function( app ) {
 		return function( err ) {
 			app.showMessage( 'Error: ' + err.message );
 		};
 	})( this );
 	
 	const getLogsUrl = new URL('/api/Logs::get', window.location.origin);
-	getLogsUrl.searchParams.set('priority', 4);
-	getLogsUrl.searchParams.set('facility', 0);
+	getLogsUrl.searchParams.set('priority', '4');
+	getLogsUrl.searchParams.set('facility', '0');
 	
 	fetch(getLogsUrl, {
 		cache: 'no-store',
@@ -66,15 +106,15 @@ App.prototype.fetchBackupLogs = function() {
 	} ).then( successHandler ).catch( errorHandler );
 };
 
-App.prototype.onBackupLogsFetched = function( json ) {
-	if( this.handleJSONError( json ) ) 
+App.prototype.onBackupLogsFetched = function( logResponseJSON ) {
+	if( this.handleJSONError( logResponseJSON ) )
 		return;
 	const newTableBody = document.createElement( "tbody" );
 	const logTableRowFragment = this.logTableRowFragment;
 	const locale = 'de-DE';
 	const timeOptions = { dateStyle: 'medium', timeStyle: 'short' };
 	const timeSuffix = ' Uhr';
-	json.payload.forEach( function( logEntry ) {
+	logResponseJSON.payload.forEach( function( logEntry ) {
 		const curTrFragment = logTableRowFragment.cloneNode( true );
 		const timestamp = new Date( logEntry.timestamp );
 		curTrFragment.querySelector( 'td.log-time' ).textContent = timestamp.toLocaleString( locale, timeOptions ) + timeSuffix;

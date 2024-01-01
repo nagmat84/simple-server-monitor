@@ -13,5 +13,3 @@ class GetRequest extends Request {
 		return $this->queryParameters;
 	}
 }
-
-?>

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+
 namespace SSM\Controllers;
 
 use SSM\HTTP;
@@ -74,17 +75,19 @@ class Logs {
 		$processedJournal = array_map([self::class, 'processJournalEntry'], $journalOutput);
 		return new HTTP\JSONSuccessResponse( $processedJournal );
 	}
-	
-	private static function processJournalEntry( string $rawJournalEntry ): array {
-		$journalEntry = json_decode( $rawJournalEntry, true, 3, JSON_THROW_ON_ERROR );
-		return [
-			"timestamp" => intval( $journalEntry[self::JOURNAL_TIMESTAMP_FIELD] ),
-			"priority" => intval( $journalEntry[self::JOURNAL_PRIORITY_FIELD] ),
-			"facility" => array_key_exists( self::JOURNAL_FACILITY_FIELD, $journalEntry) ? intval( $journalEntry[self::JOURNAL_FACILITY_FIELD] ) : null,
-			"identifier" => $journalEntry[self::JOURNAL_IDENTIFIER_FIELD] ?? null,
-			"message" => $journalEntry[self::JOURNAL_MESSAGE_FIELD] ?? null
-		];
+
+	private static function processJournalEntry(string $rawJournalEntry ): ?array {
+		try {
+			$journalEntry = json_decode($rawJournalEntry, true, 3, JSON_THROW_ON_ERROR);
+			return [
+				"timestamp" => intval( $journalEntry[self::JOURNAL_TIMESTAMP_FIELD] ),
+				"priority" => intval( $journalEntry[self::JOURNAL_PRIORITY_FIELD] ),
+				"facility" => array_key_exists( self::JOURNAL_FACILITY_FIELD, $journalEntry) ? intval( $journalEntry[self::JOURNAL_FACILITY_FIELD] ) : null,
+				"identifier" => $journalEntry[self::JOURNAL_IDENTIFIER_FIELD] ?? null,
+				"message" => $journalEntry[self::JOURNAL_MESSAGE_FIELD] ?? null
+			];
+		} catch (\JsonException) {
+			return null;
+		}
 	}
 }
-
-?>

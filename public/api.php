@@ -11,6 +11,9 @@ $routes = [
 	'Logs::get' => ['\SSM\Controllers\Logs', 'get']
 ];
 
+/**
+ * @throws \ErrorException
+ */
 function handleError($severity, $message, $fileName, $lineNo) {
     throw new \ErrorException($message, 0, $severity, $fileName, $lineNo);
 }
@@ -31,15 +34,19 @@ try {
 		$response = $controller->$methodName($request);
 	}
 	$response->send();
-} catch( Exceptions\UnsupportedRequestMethod $e) {
-	$response = HTTP\JSONErrorResponse::createMethodNotAllowed();
-	$response->send();
+} catch( Exceptions\UnsupportedRequestMethod ) {
+	try {
+		$response = HTTP\JSONErrorResponse::createMethodNotAllowed();
+		$response->send();
+	} catch( \Throwable ) {}
 } catch( \JsonException $e ) {
-	$response = HTTP\JSONErrorResponse::createInternalServerError( $e->getMessage() );
-	$response->send();
-} catch( \Throwable $e ) {
-	$response = HTTP\JSONErrorResponse::createInternalServerError( $e->getFile() . ":" . $e->getLine() . ":" . $e->getMessage() );
-	$response->send();
+	try {
+		$response = HTTP\JSONErrorResponse::createInternalServerError( $e->getMessage() );
+		$response->send();
+	} catch( \Throwable ) {}
+} catch(\Throwable $e) {
+	try {
+		$response = HTTP\JSONErrorResponse::createInternalServerError( $e->getFile() . ":" . $e->getLine() . ":" . $e->getMessage() );
+		$response->send();
+	} catch( \Throwable ) {}
 }
-
-?>

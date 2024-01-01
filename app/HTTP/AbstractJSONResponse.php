@@ -9,7 +9,10 @@ abstract class AbstractJSONResponse {
 		$this->code = $code;
 		$this->message = $message;
 	}
-	
+
+	/**
+	 * @throws \JsonException
+	 */
 	public function send(): never {
 		\header( 'Cache-Control: no-cache' );
 		\header( 'Content-type: application/json; charset=UTF-8' );
@@ -23,5 +26,3 @@ abstract class AbstractJSONResponse {
 	
 	abstract protected function getResponse(): array;
 }
-
-?>

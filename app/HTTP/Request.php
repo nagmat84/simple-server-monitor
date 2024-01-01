@@ -23,5 +23,3 @@ abstract class Request {
 		return $this->lastPathComponent;
 	}
 }
-
-?>

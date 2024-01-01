@@ -22,5 +22,3 @@ class JSONErrorResponse extends AbstractJSONResponse {
 		return [];
 	}
 }
-
-?>
