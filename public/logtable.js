@@ -81,6 +81,10 @@ LogTable.prototype.onLogFetched = function( logResponseJSON ) {
         return;
     const newTableBody = document.createElement( "tbody" );
     const logTableRowFragment = this.logTableRowFragment;
+    // Currently hard-coded: Put most recent entries to the top
+    logResponseJSON.payload.sort((a, b) =>
+        Math.sign(b.timestamp - a.timestamp)
+    );
     logResponseJSON.payload.forEach( function( logEntry ) {
         const curTrFragment = logTableRowFragment.cloneNode( true );
         const timestamp = new Date( logEntry.timestamp );
