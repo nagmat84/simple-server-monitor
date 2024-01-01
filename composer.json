@@ -1,0 +1,30 @@
+{
+	"name": "mhnnet/simple-server-monitor",
+	"description": "A simple web UI to monitor a single server",
+	"type": "project",
+	"version": "0.1.0",
+	"keywords": ["logging", "monitoring"],
+	"homepage": "https://github.com/nagmat84/simple-server-monitor",
+	"readme": "README.md",
+	"license": "MIT",
+	"authors": [{
+		"name": "Matthias Nagel",
+		"role": "Developer"
+	}],
+	"support": {
+		"issues": "https://github.com/nagmat84/simple-server-monitor/issues",
+		"source": "https://github.com/nagmat84/simple-server-monitor"
+	},
+	"require": {
+		"php": ">=8.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"SSM\\": "app/",
+			"SSM\\Config\\": "config/"
+		}
+	},
+	"config": {
+		"vendor-dir": "lib"
+	}
+}
