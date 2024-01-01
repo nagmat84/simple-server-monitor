@@ -79,8 +79,9 @@ class Logs {
 	private static function processJournalEntry(string $rawJournalEntry ): ?array {
 		try {
 			$journalEntry = json_decode($rawJournalEntry, true, 3, JSON_THROW_ON_ERROR);
+			// Note: Journald uses microseconds since epoch, but JSON transmits milliseconds since epoch
 			return [
-				"timestamp" => intval( $journalEntry[self::JOURNAL_TIMESTAMP_FIELD] ),
+				"timestamp" => intdiv(intval( $journalEntry[self::JOURNAL_TIMESTAMP_FIELD] ), 1000),
 				"priority" => intval( $journalEntry[self::JOURNAL_PRIORITY_FIELD] ),
 				"facility" => array_key_exists( self::JOURNAL_FACILITY_FIELD, $journalEntry) ? intval( $journalEntry[self::JOURNAL_FACILITY_FIELD] ) : null,
 				"identifier" => $journalEntry[self::JOURNAL_IDENTIFIER_FIELD] ?? null,
