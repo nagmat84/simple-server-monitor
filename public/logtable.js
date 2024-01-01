@@ -39,7 +39,7 @@ LogTable.prototype.fetchLog = function() {
         };
     })( this.app );
 
-    const getLogsUrl = new URL('/api/Logs::get', this.app.rootURL);
+    const getLogsUrl = new URL('api/Logs::get', this.app.rootURL);
     if( this.tableConfig.priority !== null ) {
         getLogsUrl.searchParams.set('priority', '' + this.tableConfig.priority.level);
     }
