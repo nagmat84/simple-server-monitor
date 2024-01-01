@@ -111,7 +111,7 @@ col.log-facility {
 }
 
 col.log-identifier {
-	width: 7rem;
+	width: 15rem;
 }
 
 col.log-message {
