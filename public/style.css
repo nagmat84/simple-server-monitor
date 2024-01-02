@@ -76,10 +76,29 @@ a, a:link, a:visited, a:hover, a:active {
 	overflow-y: auto;
 }
 
+/*
+ * Primarily, the table container is required to show horizontal scroll bars
+ * for wide tables.
+ * However, the horizontal scroll bar (if needed) appears at the bottom of the
+ * table container.
+ * In order to ensure that horizontal scroll bar is visible and can be
+ * operated by the user, the vertical size of the table container must
+ * completely fit onto the view port.
+ * Hence, the height is restricted to 85% of the view port height as well.
+ */
+div.table-container {
+	width: fit-content;
+	max-width: 85%;
+	max-height: 85vh;
+	margin: 1.6rem auto;
+	overflow: auto;
+}
+
 table {
 	table-layout: fixed;
 	border-collapse: collapse;
-	margin: .8rem auto;
+	margin: 0;
+	width: 140ch;
 }
 
 table caption {
@@ -93,25 +112,20 @@ th, td {
 	padding: .3rem .5rem;
 }
 
-table.log-table {
-	width: 100rem;
-	max-width: 85%;
-}
-
 col.log-time {
-	width: 15rem;
+	width: 20ch;
 }
 
 col.log-priority {
-	width: 6rem;
+	width: 9ch;
 }
 
 col.log-facility {
-	width: 6rem;
+	width: 10ch;
 }
 
 col.log-identifier {
-	width: 15rem;
+	width: 22ch;
 }
 
 col.log-message {
