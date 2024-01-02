@@ -26,8 +26,8 @@ LogView.prototype.init = function() {
 };
 
 /**
- * @param {HTMLTableElement} table
+ * @param {HTMLDivElement} tableContainer
  */
-LogView.prototype.appendLogTable = function(table) {
-	this.htmlViewRoot.appendChild(table);
+LogView.prototype.appendLogTable = function(tableContainer) {
+	this.htmlViewRoot.appendChild(tableContainer);
 }

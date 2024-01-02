@@ -76,15 +76,36 @@ a, a:link, a:visited, a:hover, a:active {
 	overflow-y: auto;
 }
 
+div.table-container {
+	width: fit-content;
+	max-width: 85%;
+	margin: 1.6rem auto;
+}
+
+p.table-caption {
+	width: 85%;
+	margin: 1.6rem auto 0.8rem auto;
+	text-align: center;
+	font-style: italic;
+}
+
+div.table-scroll-container {
+	width: fit-content;
+	max-width: 100%;
+	max-height: calc(95vh - 1.8rem - 2*1.6rem);
+	overflow: auto;
+}
+
 table {
 	table-layout: fixed;
 	border-collapse: collapse;
-	margin: .8rem auto;
+	margin: 0;
+	width: 140ch;
 }
 
-table caption {
-	margin: 0 0 .5rem 0;
-	font-style: italic;
+thead {
+	position: sticky;
+	top: 0;
 }
 
 th, td {
@@ -93,25 +114,20 @@ th, td {
 	padding: .3rem .5rem;
 }
 
-table.log-table {
-	width: 100rem;
-	max-width: 85%;
-}
-
 col.log-time {
-	width: 15rem;
+	width: 20ch;
 }
 
 col.log-priority {
-	width: 6rem;
+	width: 9ch;
 }
 
 col.log-facility {
-	width: 6rem;
+	width: 10ch;
 }
 
 col.log-identifier {
-	width: 15rem;
+	width: 22ch;
 }
 
 col.log-message {

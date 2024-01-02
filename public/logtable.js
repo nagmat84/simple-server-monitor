@@ -11,19 +11,19 @@ function LogTable(app, logView, tableConfig) {
     this.logView = logView;
     this.tableConfig = tableConfig;
     /**
-     * @type {?HTMLTableElement}
+     * @type {?HTMLDivElement}
      */
-    this.htmlTable = null;
-    this.logTableFragment = document.getElementById( 'log-table-fragment' ).content;
+    this.htmlTableContainer = null;
+    this.logTableContainerFragment = document.getElementById( 'log-table-container-fragment' ).content;
     this.logTableRowFragment = document.getElementById( 'log-tr-fragment' ).content;
     Object.seal( this );
 }
 
 LogTable.prototype.createTable = function() {
-    const tableFragment = this.logTableFragment.cloneNode(true);
-    tableFragment.querySelector('caption').textContent = this.tableConfig.caption;
-    this.htmlTable = tableFragment.firstElementChild;
-    this.logView.appendLogTable(this.htmlTable);
+    const tableContainerFragment = this.logTableContainerFragment.cloneNode(true);
+    tableContainerFragment.querySelector('p.table-caption').textContent = this.tableConfig.caption;
+    this.htmlTableContainer = tableContainerFragment.firstElementChild;
+    this.logView.appendLogTable(this.htmlTableContainer);
 }
 
 LogTable.prototype.fetchLog = function() {
@@ -98,7 +98,7 @@ LogTable.prototype.onLogFetched = function( logResponseJSON ) {
         curTrFragment.querySelector( 'td.log-message' ).textContent = logEntry.message;
         newTableBody.appendChild( curTrFragment.firstElementChild );
     } );
-    this.htmlTable.querySelector( 'tbody' ).replaceChildren( ...newTableBody.children );
+    this.htmlTableContainer.querySelector( 'tbody' ).replaceChildren( ...newTableBody.children );
 };
 
 LogTable.prototype.init = function() {
