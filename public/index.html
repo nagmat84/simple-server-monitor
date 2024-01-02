@@ -29,26 +29,28 @@
 		<div id="message-box"></div>
 		<template id="log-table-container-fragment">
 			<div class="table-container">
-				<table class="log-table">
-					<caption></caption>
-					<colgroup>
-						<col class="log-time" />
-						<col class="log-priority" />
-						<col class="log-facility" />
-						<col class="log-identifier" />
-						<col class="log-message" />
-					</colgroup>
-					<thead>
-					<tr>
-						<th scope="col" class="log-time">Time</th>
-						<th scope="col" class="log-priority">Priority</th>
-						<th scope="col" class="log-facility">Facility</th>
-						<th scope="col" class="log-identifier">Identifier</th>
-						<th scope="col" class="log-message">Message</th>
-					</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
+				<p class="table-caption"></p>
+				<div class="table-scroll-container">
+					<table class="log-table">
+						<colgroup>
+							<col class="log-time" />
+							<col class="log-priority" />
+							<col class="log-facility" />
+							<col class="log-identifier" />
+							<col class="log-message" />
+						</colgroup>
+						<thead>
+						<tr>
+							<th scope="col" class="log-time">Time</th>
+							<th scope="col" class="log-priority">Priority</th>
+							<th scope="col" class="log-facility">Facility</th>
+							<th scope="col" class="log-identifier">Identifier</th>
+							<th scope="col" class="log-message">Message</th>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
 			</div>
 		</template>
 		<template id="log-tr-fragment">

@@ -21,7 +21,7 @@ function LogTable(app, logView, tableConfig) {
 
 LogTable.prototype.createTable = function() {
     const tableContainerFragment = this.logTableContainerFragment.cloneNode(true);
-    tableContainerFragment.querySelector('caption').textContent = this.tableConfig.caption;
+    tableContainerFragment.querySelector('p.table-caption').textContent = this.tableConfig.caption;
     this.htmlTableContainer = tableContainerFragment.firstElementChild;
     this.logView.appendLogTable(this.htmlTableContainer);
 }
